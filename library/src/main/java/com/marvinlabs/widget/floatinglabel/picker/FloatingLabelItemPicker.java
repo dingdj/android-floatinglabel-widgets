@@ -203,8 +203,8 @@ public class FloatingLabelItemPicker<ItemT> extends FloatingLabelWidgetBase<Text
      */
     protected void onSelectedItemsChanged() {
         if (selectedIndices == null || selectedIndices.length == 0) {
-            getInputWidget().setText("");
             anchorLabel();
+            getInputWidget().setText("");
         } else {
             getInputWidget().setText(getItemPrinter().itemsToString(getSelectedItems()));
             floatLabel();

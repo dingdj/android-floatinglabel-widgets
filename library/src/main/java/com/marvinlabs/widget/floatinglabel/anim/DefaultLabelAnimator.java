@@ -2,6 +2,7 @@ package com.marvinlabs.widget.floatinglabel.anim;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.marvinlabs.widget.floatinglabel.LabelAnimator;
 
@@ -107,6 +108,15 @@ public class DefaultLabelAnimator<InputWidgetT extends View> implements LabelAni
 
     protected float getTargetY(InputWidgetT inputWidget, View label, boolean isAnchored) {
         if (isAnchored) {
+            if (inputWidget instanceof TextView) {
+                TextView textView = (TextView) inputWidget;
+                int lineHeight = textView.getLineHeight();
+                int lineCount = textView.getLineCount();
+                if (lineCount > 1) {
+                    return inputWidget.getBottom() - (lineCount - 1) * lineHeight -
+                            inputWidget.getPaddingBottom() - label.getHeight();
+                }
+            }
             return inputWidget.getBottom() - inputWidget.getPaddingBottom() - label.getHeight();
         } else {
             final float targetScale = getTargetScale(inputWidget, label, isAnchored);
